@@ -88,19 +88,20 @@ def change_fleet_direction(game_settings, aliens):
     game_settings.fleet_direction *= -1
 
 
-def update_aliens(game_settings, stats, screen, ship, aliens, bullets):
+def update_aliens(game_settings, stats, screen, sb, ship, aliens, bullets):
     check_fleet_edges(game_settings, aliens)
     for a in aliens:
         a.update_position()
 
     if pg.sprite.spritecollideany(ship, aliens):
         print("Hull breach!!! Get to your escape pods... We're all gonna die!")
-        ship_hit(game_settings, stats, screen, ship, aliens, bullets)
+        ship_hit(game_settings, stats, screen, sb, ship, aliens, bullets)
 
 
-def ship_hit(game_settings, stats, screen, ship, aliens, bullets):
+def ship_hit(game_settings, stats, screen, sb, ship, aliens, bullets):
     if stats.ships_left > 0:
         stats.ships_left -= 1
+        sb.prep_ships()
         aliens.empty()
         bullets.empty()
 
@@ -222,7 +223,7 @@ def run_game():
         if stats.game_active:
             update_bullets(game_settings, stats, screen, sb, ship, bullets, aliens)
             ship.update_position()
-            update_aliens(game_settings, stats, screen, ship, aliens, bullets)
+            update_aliens(game_settings, stats, screen, sb, ship, aliens, bullets)
 
 
 # execute
