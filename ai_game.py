@@ -68,7 +68,7 @@ def create_fleet(game_settings, screen, aliens):
         for c in range(ncols):
             new_alien = AlienShip(game_settings, screen)
             new_alien.x = alien_x + (2 * alien_x * c)
-            new_alien.y = 50 + alien_y + (2 * alien_y * r)
+            new_alien.y = alien_y + (2 * alien_y * r)
             new_alien.rect.x = new_alien.x
             new_alien.rect.y = new_alien.y
             aliens.add(new_alien) # add to group
@@ -121,7 +121,7 @@ def check_event_keyup(event, ship):
         ship.moving_left = False
 
 
-def check_event_keydown(event, game_settings, screen, ship, bullets):
+def check_event_keydown(event, game_settings, stats, screen, ship, bullets):
     "modify ship position based on key presses"
     if event.key == pg.K_RIGHT:
         ship.moving_right = True
@@ -130,6 +130,7 @@ def check_event_keydown(event, game_settings, screen, ship, bullets):
     elif event.key == pg.K_SPACE:
         fire_bullet(game_settings, screen, ship, bullets)
     elif event.key == pg.K_q:
+        stats.write_high_score()
         sys.exit()
 
 def check_play_button(game_settings, stats, screen, sb, ship, bullets, aliens, play_button,
@@ -164,9 +165,10 @@ def check_events(game_settings, stats, screen, sb, ship, bullets, aliens, play_b
     """Wrapper for event functionality"""
     for event in pg.event.get():
         if event.type == pg.QUIT:
+            stats.write_high_score()
             sys.exit()
         elif event.type == pg.KEYDOWN:
-            check_event_keydown(event, game_settings, screen, ship, bullets)
+            check_event_keydown(event, game_settings, sb, screen, ship, bullets)
         elif event.type == pg.KEYUP:
             check_event_keyup(event, ship)
         elif event.type == pg.MOUSEBUTTONDOWN:

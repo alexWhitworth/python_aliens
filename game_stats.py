@@ -11,12 +11,24 @@ class GameStats():
         self.game_active = False
         self.settings = game_settings
         self.reset_stats()
-        self.high_score = 0
+        self.high_score = self.read_high_score()
 
     def reset_stats(self):
         self.ships_left = self.settings.ship_limit
         self.score = 0
         self.game_level = 1
+
+    def read_high_score(self):
+        """read high score"""
+        with open('high_score.txt') as obj:
+            exist_score = obj.read()
+
+        return int(exist_score)
+
+    def write_high_score(self):
+        """write high score"""
+        with open('high_score.txt', 'w') as obj:
+            obj.write(str(self.high_score))
 
 
 class Scoreboard():
