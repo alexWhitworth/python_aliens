@@ -156,12 +156,6 @@ def check_play_button(game_settings, stats, screen, sb, ship, bullets, aliens, p
         ship.center_ship()
 
 
-def check_high_score(stats, sb):
-    if stats.score > stats.high_score:
-        stats.high_score = stats.score
-        sb.prep_high_score()
-
-
 def check_events(game_settings, stats, screen, sb, ship, bullets, aliens, play_button):
     """Wrapper for event functionality"""
     for event in pg.event.get():
@@ -169,7 +163,7 @@ def check_events(game_settings, stats, screen, sb, ship, bullets, aliens, play_b
             stats.write_high_score()
             sys.exit()
         elif event.type == pg.KEYDOWN:
-            check_event_keydown(event, game_settings, sb, screen, ship, bullets)
+            check_event_keydown(event, game_settings, stats, screen, ship, bullets)
         elif event.type == pg.KEYUP:
             check_event_keyup(event, ship)
         elif event.type == pg.MOUSEBUTTONDOWN:
@@ -191,6 +185,13 @@ def update_screen(game_settings, stats, screen, sb, ship, bullets, aliens, play_
     if not stats.game_active:
         play_button.draw()
     pg.display.flip()
+
+
+def check_high_score(stats, sb):
+    if stats.score > stats.high_score:
+        stats.high_score = stats.score
+        sb.prep_high_score()
+
 
 
 # run the game

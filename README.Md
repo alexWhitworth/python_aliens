@@ -10,7 +10,7 @@ any alien ship hits the player's ship, it is destroyed. **Can you save the human
 
 ## Installation
 
-A Python project, Aliens depends on Python 3. It also uses pygame. We use Python 3.6.0 and pygame 1.9.4.
+A Python project, Aliens depends on Python 3. It also uses pygame. We use Python 3.7.0 and pygame 1.9.4.
 Other versions may or may not be compatible.
 
 On Linux you should use `pip3` and your package manager to install dependencies. On OS X, you should
